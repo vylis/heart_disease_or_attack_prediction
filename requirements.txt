@@ -1,0 +1,14 @@
+uvicorn
+fastapi
+fastapi_restful
+
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+tensorflow
+keras
+keras-tuner
+
+pytest
