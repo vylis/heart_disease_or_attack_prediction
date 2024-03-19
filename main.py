@@ -117,9 +117,8 @@ async def predict_model(data: CustomParams = Depends()):
         predictions = [float(p) for p in predictions]
 
         # return predictions
-        print(predictions)
         return {
-            "categorized_predictions": categorize_prediction(predictions),
+            "categorized_predictions": categorize_prediction(predictions, [data_dict]),
         }
 
     except Exception as e:
