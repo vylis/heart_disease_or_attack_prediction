@@ -1,12 +1,12 @@
-# Heart Disease or Attack Prediction
+# Heart Disease Prediction
 
-- create venv
+- create venv (optional)
 
 ```bash
 python -m venv venv
 ```
 
-- activate venv
+- activate venv (optional)
 
 ```bash
 source venv/bin/activate
