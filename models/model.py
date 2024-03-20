@@ -85,7 +85,7 @@ early_stopping = EarlyStopping(
 
 nn = build_nn()
 lr = LogisticRegression()
-# dt = DecisionTreeClassifier()
+dt = DecisionTreeClassifier()
 # rf = RandomForestClassifier()
 # gb = GradientBoostingClassifier()
 # knn = KNeighborsClassifier()
@@ -94,7 +94,7 @@ lr = LogisticRegression()
 models = [
     nn,
     lr,
-    # dt,
+    dt,
     # rf,
     # gb,
     # knn,
@@ -103,7 +103,7 @@ models = [
 model_names = [
     "Neural Network",
     "Logistic Regression",
-    # "Decision Tree",
+    "Decision Tree",
     # "Random Forest",
     # "Gradient Boosting",
     # "K-Nearest Neighbors",
@@ -123,7 +123,7 @@ knn_params = {"n_neighbors": [3, 5, 7, 9, 11]}
 
 models_gs = [
     (lr, lr_params),
-    # (dt, dt_params),
+    (dt, dt_params),
     # (rf, rf_params),
     # (gb, gb_params),
     # (knn, knn_params),
@@ -135,7 +135,7 @@ best_params = {}
 # voting classifier
 models_voting = [
     lr,
-    # dt,
+    dt,
     # rf,
     # gb,
     # knn
@@ -387,13 +387,12 @@ def build_model():
         voting_clf = voting_classifier(X_train, y_train, X_val, y_val)
 
         # define best model
-        best_model_key = list(best_models.keys())[0]
-        print(f"Best Model: {best_models}")
+        best_model_list = sorted(best_models, key=best_models.get, reverse=True)
+        best_model_key = best_model_list[0]
+        print(f"Best Model: {best_model_list}")
         print(f"Best Model: {best_model_key}")
 
         # train best model on all the data and save it
-        best_model_key = list(best_models.keys())[0]
-
         if best_model_key == nn:
             best_model = build_nn(hp=best_params[best_model_key])
             best_model.fit(
