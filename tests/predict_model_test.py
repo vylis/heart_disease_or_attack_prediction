@@ -6,16 +6,25 @@ client = TestClient(main.app)
 
 def test_predict_model():
     data = {
-        "HighBP": 1,
+        "HighBP": 0,
         "HighChol": 0,
-        "BMI": 28,
+        "CholCheck": 1,
+        "BMI": 22,
         "Smoker": 1,
         "Stroke": 0,
         "Diabetes": 1,
-        "GenHlth": 2,
+        "PhysActivity": 1,
+        "Fruits": 1,
+        "Veggies": 1,
+        "HvyAlcoholConsump": 0,
+        "AnyHealthcare": 1,
+        "NoDocbcCost": 0,
+        "GenHlth": 3,
+        "MentHlth": 15,
+        "PhysHlth": 2,
         "DiffWalk": 0,
-        "Sex": 1,
-        "Age": 6,
+        "Sex": 0,
+        "Age": 2,
     }
 
     response = client.post("/predict_model", data=data)

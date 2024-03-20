@@ -1,4 +1,88 @@
 import pandas as pd
+import numpy as np
+
+
+# invert healthy lifestyle features because 1 is supposed to be high risk
+def invert_wrong_binary_features(df):
+    for feature in ["PhysActivity", "Fruits", "Veggies", "CholCheck", "AnyHeatlhcare"]:
+        if feature in df.columns:
+            df[feature] = 1 - df[feature]
+    return df
+
+
+# cut education into 4 categories
+def classify_educa(df):
+    bins = [0, 3, 4, 5, 6]
+    labels = [0, 1, 2, 3]
+    df["Education"] = pd.cut(df["Education"], bins, labels=labels)
+    return df
+
+
+# cut income into 5 categories
+def classify_income(df):
+    bins = [0, 2, 4, 5, 6, 8]
+    labels = [0, 1, 2, 3, 4]
+    df["Income"] = pd.cut(df["Income"], bins, labels=labels)
+    return df
+
+
+# cut bmi into 4 categories
+def classify_bmi(df):
+    bins = [0, 18.5, 25, 30, 100]
+    # underweight, normal, overweight, obese
+    labels = [1, 2, 3, 4]
+    df["BMI"] = pd.cut(df["BMI"], bins, labels=labels)
+    return df
+
+
+# cut genhealth into 2 categories
+def classify_genhealth(df):
+    bins = [0, 3, 5]
+    labels = [0, 1]
+    df["GenHlth"] = pd.cut(df["GenHlth"], bins, labels=labels)
+    return df
+
+
+# cut physical health into 3 categories
+def classify_physical_health(df):
+    bins = [-np.inf, 0, 13, np.inf]
+    labels = [0, 1, 2]
+    df["PhysHlth"] = pd.cut(df["PhysHlth"], bins, labels=labels)
+    return df
+
+
+# cut mental health into 3 categories
+def classify_mental_health(df):
+    bins = [-np.inf, 0, 13, np.inf]
+    labels = [0, 1, 2]
+    df["MentHlth"] = pd.cut(df["MentHlth"], bins, labels=labels)
+    return df
+
+
+# risk score based health data
+def risk_score_health_data(df):
+    df["RiskScoreHealthData"] = (
+        df["HighBP"] + df["HighChol"] + df["Stroke"] + df["Diabetes"]
+    )
+    return df
+
+
+# risk score based on lifestyle data
+def risk_score_lifestyle_data(df):
+    df["RiskScoreLifestyleData"] = (
+        df["Smoker"]
+        + df["HvyAlcoholConsump"]
+        + df["PhysActivity"]
+        + df["Fruits"]
+        + df["Veggies"]
+    )
+    return df
+
+
+# bad health with physhlth and menthlth
+def bad_health(df):
+    df["badHlth"] = df["PhysHlth"] + df["MentHlth"]
+    return df
 
 
 # real age
@@ -56,15 +140,6 @@ def income_per_education(df):
     return df
 
 
-# cut bmi into 4 categories
-def classify_bmi(df):
-    bins = [0, 18.5, 25, 30, 100]
-    # underweight, normal, overweight, obese
-    labels = [1, 2, 3, 4]
-    df["BMI"] = pd.cut(df["BMI"], bins, labels=labels)
-    return df
-
-
 # healthcare per income
 def healthcare_per_income(df):
     df["HealthcarePerIncome"] = df.groupby("Income")["AnyHealthcare"].transform("mean")
@@ -76,30 +151,4 @@ def no_doctor_consultation_per_income(df):
     df["NoDocConsultationPerIncome"] = df.groupby("Income")["NoDocbcCost"].transform(
         "mean"
     )
-    return df
-
-
-# risk score based health data
-def risk_score_health_data(df):
-    df["RiskScoreHealthData"] = (
-        df["HighBP"] + df["HighChol"] + df["Stroke"] + df["Diabetes"]
-    )
-    return df
-
-
-# risk score based on lifestyle data
-def risk_score_lifestyle_data(df):
-    df["RiskScoreLifestyleData"] = (
-        df["Smoker"]
-        + df["HvyAlcoholConsump"]
-        + df["PhysActivity"]
-        + df["Fruits"]
-        + df["Veggies"]
-    )
-    return df
-
-
-# bad health with physhlth and menthlth
-def bad_health(df):
-    df["badHlth"] = df["PhysHlth"] + df["MentHlth"]
     return df
