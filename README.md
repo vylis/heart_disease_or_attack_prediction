@@ -1,41 +1,35 @@
 # Heart Disease Prediction
 
-- create venv (optional)
+This API uses machine learning to predict heart disease risk. 
 
-```bash
-python -m venv venv
-```
+## Getting Started
 
-- activate venv (optional)
+1. **Create a virtual environment (optional)**: Create a virtual environment.
+    ```bash
+    python -m venv venv
+    ```
 
-```bash
-source venv/bin/activate
-```
+2. **Activate the virtual environment (optional)**: Activate the virtual environment.
+    ```bash
+    source venv/bin/activate
+    ```
 
-- install requirements
+3. **Install dependencies**: Install the necessary dependencies.
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-```bash
-  pip install -r requirements.txt
-```
+4. **Start the API**: Start the application.
+    ```bash
+    uvicorn main:app --reload
+    ```
 
-- start api
+## Usage
 
-```bash
-uvicorn main:app --reload
-```
+- **Swagger UI**: Use `http://localhost:8000/docs` to access the Swagger where you can test the API routes.
 
-- access swagger with your browser
+- **Create Model**: Use the `create_model` route and wait for the model to be created.
 
-```
-http://localhost:8000/docs
-```
+- **Predict**: Once the model is created, you can use the `predict` route to make predictions.
 
-- first use the create_model route if you don't have the model and wait for the model to be created
-
-- then you can use the predict routes
-
-- you can run unit tests and e2e tests with pytest
-
-```bash
-pytest
-```
+- **Tests**: Run `pytest` in the terminal to execute the tests.
