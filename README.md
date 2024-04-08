@@ -1,6 +1,6 @@
 # Heart Disease Prediction
 
-This API uses machine learning to predict heart disease risk. 
+This API uses machine learning to predict heart disease risks. 
 
 ## Getting Started
 
