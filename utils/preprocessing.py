@@ -18,7 +18,7 @@ def process_data(df, scaling_method="None"):
     df.drop(columns=[col for col in columns_to_drop if col in df.columns], inplace=True)
 
     # feature engineering
-    df = invert_wrong_binary_features(df)
+    # df = invert_wrong_binary_features(df)
     df = classify_bmi(df)
     df = classify_genhealth(df)
     df = classify_physical_health(df)
